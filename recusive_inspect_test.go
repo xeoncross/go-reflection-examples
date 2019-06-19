@@ -1,14 +1,15 @@
 package main
 
-// https://stackoverflow.com/a/24348352/99923
-
 import (
 	"fmt"
 	"reflect"
-	"testing"
 )
 
-type A struct {
+// Recursively inspect all properties of a struct/pointer using reflection
+//
+// based on https://stackoverflow.com/a/24348352/99923
+
+type InspectFoo struct {
 	S    string
 	Meta struct {
 		Desc       string
@@ -61,7 +62,7 @@ func InspectStruct(v interface{}) {
 	InspectStructV(reflect.ValueOf(v))
 }
 
-func TestInspect(t *testing.T) {
-	a := &A{}
-	InspectStruct(a)
-}
+// func TestInspect(t *testing.T) {
+// 	a := &InspectFoo{}
+// 	InspectStruct(a)
+// }

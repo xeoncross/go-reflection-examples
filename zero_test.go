@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -14,10 +13,18 @@ func TestZero(t *testing.T) {
 	// but one gives you a pointer to a zeroed value
 	// and one gives you a zeroed pointer (aka, nil pointer)
 
-	zeroValue := reflect.New(reflect.TypeOf(a))
+	zeroedValue := reflect.New(reflect.TypeOf(a))
 	zeroedPointer := reflect.Zero(reflect.TypeOf(&a))
 
-	fmt.Printf("%#v\n", zeroValue)
-	fmt.Printf("%#v\n", zeroedPointer)
+	// fmt.Printf("%#v\n", zeroedValue)
+	// fmt.Printf("%#v\n", zeroedPointer)
+
+	if !zeroedPointer.IsNil() {
+		t.Errorf("%#v should be nil pointer", zeroedPointer)
+	}
+
+	if zeroedValue.IsNil() {
+		t.Errorf("%#v should not be nil pointer", zeroedValue)
+	}
 
 }

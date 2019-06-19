@@ -6,10 +6,15 @@ import (
 	"testing"
 )
 
-// https://stackoverflow.com/a/16179271/99923
+// Create a new struct with fields which require initializing set to new empty
+// values recursively.
+//
+// Not working.
+//
+// Based on: https://stackoverflow.com/a/16179271/99923
 
 // Example nested struct
-type A struct {
+type InitializeFoo struct {
 	S    string
 	Meta struct {
 		Desc       string
@@ -20,22 +25,26 @@ type A struct {
 
 func TestInit(t *testing.T) {
 
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println("Error", r)
-		}
-	}()
+	// defer func() {
+	// 	if r := recover(); r != nil {
+	// 		fmt.Println("Error", r)
+	// 	}
+	// }()
 
-	a := &A{}
+	a := &InitializeFoo{}
 
-	newA := initializeStruct(reflect.TypeOf(a)).Interface().(*A)
+	newA := initializeStruct(reflect.TypeOf(a)).Interface().(*InitializeFoo)
 
 	// TODO map creation not working...
-	a.Meta.Properties["a"] = "A"
-	newA.Meta.Properties["b"] = "B"
+	// a.Meta.Properties["a"] = "A"
+	// newA.Meta.Properties["b"] = "B"
 
-	fmt.Printf("%#v\n", a)
-	fmt.Printf("%#v\n", newA)
+	// fmt.Printf("%#v\n", a)
+	// fmt.Printf("%#v\n", newA)
+
+	if fmt.Sprintf("%T", a) != fmt.Sprintf("%T", newA) {
+		t.Errorf("%T != %T", a, newA)
+	}
 }
 
 func initializeStruct(t reflect.Type) reflect.Value {
