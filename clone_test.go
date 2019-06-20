@@ -12,7 +12,7 @@ type CloneFoo struct {
 	S string
 }
 
-func cloneValue(t reflect.Type) reflect.Value {
+func cloneType(t reflect.Type) reflect.Value {
 	// Dereference pointers
 	if t.Kind() == reflect.Ptr {
 		t = t.Elem()
@@ -30,7 +30,7 @@ func TestClone(t *testing.T) {
 	aType := reflect.TypeOf(a)
 
 	// New reflect.Value can be asserted back to the underlying instance
-	newA := cloneValue(aType).Interface().(*CloneFoo)
+	newA := cloneType(aType).Interface().(*CloneFoo)
 
 	a.S = "A"
 	newA.S = "B"

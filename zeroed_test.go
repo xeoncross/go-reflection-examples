@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestZero(t *testing.T) {
+func TestZeroed(t *testing.T) {
 
 	a := struct{ A string }{"Foo"}
 
