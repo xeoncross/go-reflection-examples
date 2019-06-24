@@ -16,7 +16,7 @@ type ProviderA struct {
 type ProviderFoo struct{}
 
 // Run demos needing struct, struct pointer, and string
-func (p ProviderFoo) Run(a ProviderA, ptr *ProviderA, foo string) string {
+func (p ProviderFoo) Run(a ProviderA, ptr *ProviderA, foo string, bar struct{ i int }) string {
 	return a.a + ptr.a + foo
 }
 
@@ -29,11 +29,11 @@ func TestParamProvider(t *testing.T) {
 	}()
 
 	handler := &ProviderFoo{}
-	method := reflect.ValueOf(handler).MethodByName("Run")
-	in := make([]reflect.Value, method.Type().NumIn())
+	method, _ := reflect.ValueOf(handler).Type().MethodByName("Run")
+	in := make([]reflect.Value, method.Type.NumIn())
 
-	for i := 0; i < method.Type().NumIn(); i++ {
-		paramType := method.Type().In(i)
+	for i := 0; i < method.Type.NumIn(); i++ {
+		paramType := method.Type.In(i)
 
 		// Create a new instance of each param
 		var object reflect.Value
@@ -49,14 +49,16 @@ func TestParamProvider(t *testing.T) {
 			t.Errorf("Unknown type: %s", paramType.Kind().String())
 		}
 
+		// fmt.Printf("Parameter %d: (%s): %v\n", i, paramType.String(), object.Type().Name())
+
 		in[i] = object
 	}
 
-	if method.Type().NumOut() != 1 {
+	if method.Type.NumOut() != 1 {
 		t.Errorf("Too many return values")
 	}
 
-	response := method.Call(in)
+	response := method.Func.Call(in)
 	if response[0].String() != "" {
 		t.Errorf("Unexpected result: %q", response[0].String())
 	}
