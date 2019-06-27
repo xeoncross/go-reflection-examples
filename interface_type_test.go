@@ -32,7 +32,6 @@ func TestInterface(t *testing.T) {
 
 }
 
-// TypeOf trick found at
 func isContext(r reflect.Type) bool {
 	return r.Implements(reflect.TypeOf((*context.Context)(nil)).Elem())
 }
