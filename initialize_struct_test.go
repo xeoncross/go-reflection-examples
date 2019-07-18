@@ -25,12 +25,6 @@ type InitializeFoo struct {
 
 func TestInit(t *testing.T) {
 
-	// defer func() {
-	// 	if r := recover(); r != nil {
-	// 		fmt.Println("Error", r)
-	// 	}
-	// }()
-
 	a := &InitializeFoo{}
 
 	newA := initializeStruct(reflect.TypeOf(a)).Interface().(*InitializeFoo)

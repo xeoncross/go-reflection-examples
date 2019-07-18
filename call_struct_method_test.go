@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+// Simple example of calling a struct method using reflect
+
 // Foo contains "Min" to show we haven't lost context when calling "Add()"
 type Foo struct {
 	Min int
