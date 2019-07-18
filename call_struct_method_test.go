@@ -25,7 +25,9 @@ func TestCallStructMethod(t *testing.T) {
 		reflect.ValueOf(5),
 	}
 
-	result := fooValue.Method(0).Call(in)
+	// Function can be called by name or position
+	// result := fooValue.Method(0).Call(in)
+	result := fooValue.MethodByName("Add").Call(in)
 
 	if result[0].Int() != 10 {
 		t.Errorf("Invalid result: %d\n", result[0].Int())
