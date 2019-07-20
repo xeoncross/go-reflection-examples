@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-// Convert a struct with scaler values into a url.Values map
+// Convert a struct with scalar values into a url.Values map
 
 func structToURLValues(i interface{}) (url.Values, error) {
 	values := url.Values{}
